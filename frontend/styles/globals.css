@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* VIMORA design tokens. Warm light is the default; [data-theme=dark] is a warm, soft night mode. */
+@theme {
+
+  /* semantic, theme-switched */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-ink: var(--ink);
+  --color-glow: var(--glow);
+  --color-ink-fg: var(--ink-fg);
+  --color-ink-hover: var(--ink-hover);
+  --color-accent-hover: var(--accent-hover);
+  --color-soft: var(--soft);
+  --color-soft-2: var(--soft-2);
+  --color-switch: var(--switch);
+  --color-tint-0: var(--tint-0);
+  --color-tint-1: var(--tint-1);
+  --color-tint-2: var(--tint-2);
+  --color-tint-3: var(--tint-3);
+  --color-tint-4: var(--tint-4);
+  --color-tint-5: var(--tint-5);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-serif), Georgia, "Times New Roman", serif;
+
+  --radius-control: 999px;
+  --radius-panel: 18px;
+  --shadow-soft: 0 1px 2px rgb(24 33 30 / 0.04), 0 8px 24px -12px rgb(24 33 30 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(24 33 30 / 0.05), 0 18px 40px -16px rgb(24 33 30 / 0.22);
+}
+
+:root {
+  /* VIMORA warm light palette (reference: soft ivory, deep green-black ink, walnut brown accent) */
+  --bg: #faf8f5;
+  --surface: #ffffff;
+  --raised: #f3eee7;
+  --fg: #18211e;
+  --muted: #646d68;
+  --border: #e8e1d7;
+  --accent: #7a4e2d;
+  --accent-fg: #ffffff;
+  --ink: #17201d;
+  --danger: #b4371f;
+  --ok: #2f6b3a;
+  --warn: #8a5a00;
+  --glow: #f2e1cf;
+  --glow-2: #eef3ee;
+  --ink-fg: #ffffff;
+  --ink-hover: #2a3531;
+  --accent-hover: #673f22;
+  --soft: #f6ece2;
+  --soft-2: #fdf8f3;
+  --switch: #ddd5ca;
+  --border-hover: #ddd3c6;
+  --art-dot: rgb(255 255 255 / 0.45);
+  --art-0: var(--tint-0); --art-1: var(--tint-1); --art-2: var(--tint-2); --art-3: var(--tint-3); --art-4: var(--tint-4); --art-5: var(--tint-5);
+  --tint-0: #f6e9dc; --tint-1: #e8f0e6; --tint-2: #e7eef6; --tint-3: #f4e6ea; --tint-4: #efe9f6; --tint-5: #f6f0d9;
+  color-scheme: light;
+}
+
+/* Night mode: warm espresso tones, never harsh pure black */
+[data-theme="dark"] {
+  --bg: #1b1815;
+  --surface: #24201c;
+  --raised: #2c2722;
+  --fg: #f1ebe2;
+  --muted: #b3a99c;
+  --border: #3a332c;
+  --accent: #d9a877;
+  --accent-fg: #1b1815;
+  --accent-hover: #e6bb8f;
+  --ink: #f4eee5;
+  --ink-fg: #1b1815;
+  --ink-hover: #ffffff;
+  --danger: #f08a6c;
+  --ok: #8fc79a;
+  --warn: #e5b45a;
+  --glow: #3a2b1f;
+  --glow-2: #1f2a24;
+  --soft: #2a231d;
+  --soft-2: #2a231d;
+  --switch: #4a423a;
+  --border-hover: #54493e;
+  --art-dot: rgb(255 255 255 / 0.06);
+  /* illustrations keep mid-tone backgrounds at night so dark devices stay visible */
+  --art-0: #6b5442; --art-1: #4f6656; --art-2: #4d5f78; --art-3: #6a5058; --art-4: #5c5475; --art-5: #6b6140;
+  --tint-0: #3a2d22; --tint-1: #26332a; --tint-2: #253040; --tint-3: #3a2a2e; --tint-4: #2f2a3a; --tint-5: #383220;
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.25), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.3), 0 18px 40px -16px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: var(--accent-fg); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+  }
+  .display em { font-style: italic; color: var(--accent); }
+  .eyebrow { font-size: 12.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .warm-glow { background: radial-gradient(60% 55% at 12% 18%, var(--glow) 0%, transparent 70%), radial-gradient(40% 40% at 95% 85%, var(--glow-2) 0%, transparent 70%); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow-soft); }
+  .card-hover { transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease; }
+  .card-hover:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); border-color: var(--border-hover); }
+  .prose-vimora { max-width: 72ch; line-height: 1.7; }
+  .prose-vimora h1, .prose-vimora h2, .prose-vimora h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; margin: 2em 0 0.6em; }
+  .prose-vimora h2 { font-size: 1.35rem; }
+  .prose-vimora h3 { font-size: 1.1rem; }
+  .prose-vimora p, .prose-vimora ul, .prose-vimora ol { margin: 0 0 1em; }
+  .prose-vimora ul { list-style: disc; padding-left: 1.25em; }
+  .prose-vimora ol { list-style: decimal; padding-left: 1.25em; }
+  .prose-vimora a { text-decoration: underline; text-underline-offset: 3px; }
+  .skeleton { background: linear-gradient(90deg, var(--raised) 0%, var(--surface) 50%, var(--raised) 100%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
+}
+
+@keyframes vimora-pop { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes vimora-ring { 0%, 60%, 100% { transform: rotate(0); } 10% { transform: rotate(-12deg); } 20% { transform: rotate(10deg); } 30% { transform: rotate(-7deg); } 40% { transform: rotate(4deg); } }
+@keyframes vimora-float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(-1.2deg); } }
+@keyframes vimora-fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes vimora-caret { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+@keyframes vimora-caret-out { to { opacity: 0; } }
+@keyframes vimora-dot { 0%, 100% { transform: translateY(0); opacity: .45; } 50% { transform: translateY(-3px); opacity: 1; } }
+@keyframes vimora-glow { 0%, 100% { box-shadow: 0 0 0 0 rgb(168 104 60 / 0); } 50% { box-shadow: 0 0 0 7px rgb(168 104 60 / 0.18); } }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+@keyframes vimora-step-in { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+@keyframes vimora-step-back { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }

@@ -1,0 +1,45 @@
+{
+	email {$ACME_EMAIL}
+	servers {
+		protocols h1 h2 h3
+	}
+}
+
+www.{$VIMORA_DOMAIN} {
+	redir https://{$VIMORA_DOMAIN}{uri} permanent
+}
+
+{$VIMORA_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=63072000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+
+	# Detailed health and API docs are never public.
+	@private path /api/v1/health/details /api/docs* /api/openapi.json
+	respond @private 404
+
+	# Uploads are allowed up to the configured limit; everything else is small.
+	@api path /api/*
+	handle @api {
+		request_body {
+			max_size 30MB
+		}
+		reverse_proxy backend-api:8000 {
+			header_up X-Forwarded-Proto {scheme}
+		}
+	}
+
+	handle {
+		reverse_proxy frontend:3000
+	}
+
+	log {
+		output stdout
+		format json
+	}
+}

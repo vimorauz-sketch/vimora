@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+backups/
+**/var/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+frontend/node_modules/
+frontend/.next/
+frontend/*.tsbuildinfo
+*.log
